@@ -42,10 +42,10 @@ void draw() {
     setup1();
     gameState++;
   }
-   if(gameState==3){
-    setup2();
-    gameState++;
-  }
+//   if(gameState==3){
+//    setup2();
+//    gameState++;
+//  }
     
     
   
@@ -56,7 +56,7 @@ void draw() {
   fill(255, 0, 0);
   rect(xPos, yPos, 20, 20);
 
-  //THE FIELDS-----------
+  //THE  COLLISION FIELDS-----------
 
   for (int l=yPos;l<(yPos+p1Height);l++) {
     color colorL=get(xPos-fieldBuffer, l);
@@ -91,6 +91,15 @@ void draw() {
   }
 
   //--------------------
+  
+  
+  //DEBUG 
+  
+  if(dist(mouseX, mouseY, xPos, yPos) < 10){
+    println(xPos);
+    println(yPos);
+    
+  }
 
 
   if (upPressed==true) {
@@ -146,8 +155,8 @@ void setup1() {
 
   levelMap=loadImage("Untitled-1.png");
   
-  xPos=0;
-  yPos=0;
+  xPos=127;
+  yPos=357;
 }
 
 //void setup2() {
