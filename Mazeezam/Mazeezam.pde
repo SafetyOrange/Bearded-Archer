@@ -1,4 +1,4 @@
-int level;
+int gameState;
 PImage levelMap;
 
 int p1Width;
@@ -11,7 +11,6 @@ float playerSpeed;
 
 int fieldBuffer;
 
-//DEBUG MATS
 boolean upPressed;
 boolean downPressed;
 boolean leftPressed;
@@ -25,26 +24,35 @@ void setup() {
   imageMode(CENTER);
   size (700, 700);
 
-
-  xPos=0;
-  yPos=0;
-
   p1Width=20;
   p1Height=20;
-  
+
   playerSpeed=2.2;
-  
+
   fieldBuffer=5;
 
-  level=1;
-  levelMap=loadImage("Untitled-1.png");
+  gameState=1;
 }
 
 void draw() {
+  
+  //Gamestates
+  
+  if(gameState==1){
+    setup1();
+    gameState++;
+  }
+   if(gameState==3){
+    setup2();
+    gameState++;
+  }
+    
+    
+  
   background(255);
   image(levelMap, width/2, height/2);
 
-  noStroke();
+  stroke(0);
   fill(255, 0, 0);
   rect(xPos, yPos, 20, 20);
 
@@ -65,28 +73,22 @@ void draw() {
       rightPressed=false;
     }
   }
-  
-    for (int u=xPos;u<(xPos+p1Width);u++) {
+
+  for (int u=xPos;u<(xPos+p1Width);u++) {
     color colorU=get(u, yPos-fieldBuffer);
 
     if ( colorU==#000000) {
       upPressed=false;
     }
   }
-  
-    for (int d=xPos;d<(xPos+p1Width);d++) {
+
+  for (int d=xPos;d<(xPos+p1Width);d++) {
     color colorD=get(d, yPos+p1Height+fieldBuffer);
 
     if ( colorD==#000000) {
       downPressed=false;
     }
   }
-
-
-
-
-
-
 
   //--------------------
 
@@ -140,3 +142,13 @@ void keyReleased() {
   }
 }
 
+void setup1() {
+
+  levelMap=loadImage("Untitled-1.png");
+  
+  xPos=0;
+  yPos=0;
+}
+
+//void setup2() {
+  
