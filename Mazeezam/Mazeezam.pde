@@ -7,6 +7,10 @@ int p1Height;
 int xPos;
 int yPos;
 
+float playerSpeed;
+
+int fieldBuffer;
+
 //DEBUG MATS
 boolean upPressed;
 boolean downPressed;
@@ -20,14 +24,18 @@ float fieldWidth;
 void setup() {
   imageMode(CENTER);
   size (700, 700);
-  
-  
+
+
   xPos=0;
   yPos=0;
-  
+
   p1Width=20;
   p1Height=20;
   
+  playerSpeed=2.2;
+  
+  fieldBuffer=5;
+
   level=1;
   levelMap=loadImage("Untitled-1.png");
 }
@@ -39,40 +47,62 @@ void draw() {
   noStroke();
   fill(255, 0, 0);
   rect(xPos, yPos, 20, 20);
-  
+
   //THE FIELDS-----------
 
-for(int l=yPos;l<(yPos+p1Height);l++){
-  color colorL=get(xPos-10,l);
-  
-  if ( colorL==#000000){
-   leftPressed=false;
+  for (int l=yPos;l<(yPos+p1Height);l++) {
+    color colorL=get(xPos-fieldBuffer, l);
+
+    if ( colorL==#000000) {
+      leftPressed=false;
+    }
+  }
+
+  for (int r=yPos;r<(yPos+p1Height);r++) {
+    color colorR=get(xPos+p1Width+fieldBuffer, r);
+
+    if ( colorR==#000000) {
+      rightPressed=false;
+    }
   }
   
-}  
+    for (int u=xPos;u<(xPos+p1Width);u++) {
+    color colorU=get(u, yPos-fieldBuffer);
+
+    if ( colorU==#000000) {
+      upPressed=false;
+    }
+  }
+  
+    for (int d=xPos;d<(xPos+p1Width);d++) {
+    color colorD=get(d, yPos+p1Height+fieldBuffer);
+
+    if ( colorD==#000000) {
+      downPressed=false;
+    }
+  }
+
+
+
+
+
+
+
   //--------------------
-
-//  for (int i=0;i<width;i++) {
-//    for (int j=0;i<height;i++) {
-//
-//      color c=get(i, j);
-//    }
-//  }
-
 
 
   if (upPressed==true) {
-    yPos-=2.2;
+    yPos-=playerSpeed;
   }
   if (downPressed==true) {
-    yPos+=2.2;
+    yPos+=playerSpeed;
   }
 
   if (leftPressed==true) {
-    xPos-=2.2;
+    xPos-=playerSpeed;
   }
   if (rightPressed==true) {
-    xPos+=2.2;
+    xPos+=playerSpeed;
   }
 }
 
