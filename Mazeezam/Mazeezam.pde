@@ -1,8 +1,11 @@
 int level;
 PImage levelMap;
 
-float xPos;
-float yPos;
+int p1Width;
+int p1Height;
+
+int xPos;
+int yPos;
 
 //DEBUG MATS
 boolean upPressed;
@@ -10,12 +13,21 @@ boolean downPressed;
 boolean leftPressed;
 boolean rightPressed;
 
+float fieldHeight;
+float fieldWidth;
+
 
 void setup() {
   imageMode(CENTER);
   size (700, 700);
-  xPos= 0;
+  
+  
+  xPos=0;
   yPos=0;
+  
+  p1Width=20;
+  p1Height=20;
+  
   level=1;
   levelMap=loadImage("Untitled-1.png");
 }
@@ -23,23 +35,45 @@ void setup() {
 void draw() {
   background(255);
   image(levelMap, width/2, height/2);
+
+  noStroke();
   fill(255, 0, 0);
   rect(xPos, yPos, 20, 20);
   
-  if(upPressed==true){
+  //THE FIELDS-----------
+
+for(int l=yPos;l<(yPos+p1Height);l++){
+  color colorL=get(xPos-10,l);
+  
+  if ( colorL==#000000){
+   leftPressed=false;
+  }
+  
+}  
+  //--------------------
+
+//  for (int i=0;i<width;i++) {
+//    for (int j=0;i<height;i++) {
+//
+//      color c=get(i, j);
+//    }
+//  }
+
+
+
+  if (upPressed==true) {
     yPos-=2.2;
   }
-  if(downPressed==true){
+  if (downPressed==true) {
     yPos+=2.2;
   }
-  
-   if(leftPressed==true){
+
+  if (leftPressed==true) {
     xPos-=2.2;
   }
-  if(rightPressed==true){
+  if (rightPressed==true) {
     xPos+=2.2;
   }
-  
 }
 
 void keyPressed() {
@@ -50,7 +84,7 @@ void keyPressed() {
   if (keyCode== DOWN) {
     downPressed=true;
   }
-    if (keyCode == LEFT) {
+  if (keyCode == LEFT) {
     leftPressed=true;
   }
 
@@ -67,7 +101,7 @@ void keyReleased() {
   if (keyCode== DOWN) {
     downPressed=false;
   }
-if (keyCode == LEFT) {
+  if (keyCode == LEFT) {
     leftPressed=false;
   }
 
@@ -75,3 +109,4 @@ if (keyCode == LEFT) {
     rightPressed=false;
   }
 }
+
