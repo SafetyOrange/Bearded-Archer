@@ -1,12 +1,77 @@
 int level;
+PImage levelMap;
 
-void setup(){
-  size (700,700);
+float xPos;
+float yPos;
+
+//DEBUG MATS
+boolean upPressed;
+boolean downPressed;
+boolean leftPressed;
+boolean rightPressed;
+
+
+void setup() {
+  imageMode(CENTER);
+  size (700, 700);
+  xPos= 0;
+  yPos=0;
+  level=1;
+  levelMap=loadImage("Untitled-1.png");
+}
+
+void draw() {
+  background(255);
+  image(levelMap, width/2, height/2);
+  fill(255, 0, 0);
+  rect(xPos, yPos, 20, 20);
+  
+  if(upPressed==true){
+    yPos-=2.2;
+  }
+  if(downPressed==true){
+    yPos+=2.2;
+  }
+  
+   if(leftPressed==true){
+    xPos-=2.2;
+  }
+  if(rightPressed==true){
+    xPos+=2.2;
+  }
   
 }
 
-void draw(){
-  
-  
-  
+void keyPressed() {
+  if (keyCode == UP) {
+    upPressed=true;
+  }
+
+  if (keyCode== DOWN) {
+    downPressed=true;
+  }
+    if (keyCode == LEFT) {
+    leftPressed=true;
+  }
+
+  if (keyCode== RIGHT) {
+    rightPressed=true;
+  }
+}
+
+void keyReleased() {
+  if (keyCode == UP) {
+    upPressed=false;
+  }
+
+  if (keyCode== DOWN) {
+    downPressed=false;
+  }
+if (keyCode == LEFT) {
+    leftPressed=false;
+  }
+
+  if (keyCode== RIGHT) {
+    rightPressed=false;
+  }
 }
