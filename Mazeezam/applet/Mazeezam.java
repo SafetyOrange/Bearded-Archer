@@ -1,3 +1,22 @@
+import processing.core.*; 
+import processing.xml.*; 
+
+import java.applet.*; 
+import java.awt.Dimension; 
+import java.awt.Frame; 
+import java.awt.event.MouseEvent; 
+import java.awt.event.KeyEvent; 
+import java.awt.event.FocusEvent; 
+import java.awt.Image; 
+import java.io.*; 
+import java.net.*; 
+import java.text.*; 
+import java.util.*; 
+import java.util.zip.*; 
+import java.util.regex.*; 
+
+public class Mazeezam extends PApplet {
+
 int gameState;
 PImage levelMap;
 
@@ -21,18 +40,18 @@ boolean downPressed2;
 boolean leftPressed2;
 boolean rightPressed2;
 
-void setup() {
+public void setup() {
   imageMode(CENTER);
   size (700, 700);
 
-  playerSpeed=3;
+  playerSpeed=2.6f;
 
   fieldBuffer=5;
 
   gameState=1;
 }
 
-void draw() {
+public void draw() {
 
   //Gamestates
 
@@ -53,128 +72,76 @@ void draw() {
   stroke(0);
   fill(255, 0, 0);
   rect(xPos1, yPos1, p1Width, p1Height);
-
+  
   stroke(0);
-  fill(0, 0, 255);
+  fill(0,0,255);
   rect(xPos2, yPos2, p2Width, p2Height);
 
-  //THE  PLAYER COLLISION FIELDS-----------
+  //THE  COLLISION FIELDS-----------
 
   for (int l=yPos1;l<(yPos1+p1Height);l++) {
-    color colorL=get(xPos1-fieldBuffer, l);
+    int colorL=get(xPos1-fieldBuffer, l);
 
-    if ( colorL==#000000) {
+    if ( colorL==0xff000000) {
       leftPressed1=false;
     }
   }
 
   for (int r=yPos1;r<(yPos1+p1Height);r++) {
-    color colorR=get(xPos1+p1Width+fieldBuffer, r);
+    int colorR=get(xPos1+p1Width+fieldBuffer, r);
 
-    if ( colorR==#000000) {
+    if ( colorR==0xff000000) {
       rightPressed1=false;
     }
   }
 
   for (int u=xPos1;u<(xPos1+p1Width);u++) {
-    color colorU=get(u, yPos1-fieldBuffer);
+    int colorU=get(u, yPos1-fieldBuffer);
 
-    if ( colorU==#000000) {
+    if ( colorU==0xff000000) {
       upPressed1=false;
     }
   }
 
   for (int d=xPos1;d<(xPos1+p1Width);d++) {
-    color colorD=get(d, yPos1+p1Height+fieldBuffer);
+    int colorD=get(d, yPos1+p1Height+fieldBuffer);
 
-    if ( colorD==#000000) {
+    if ( colorD==0xff000000) {
       downPressed1=false;
     }
   }
-
-//MIRROR FIELD CONTROLS
-
- for (int l2=yPos2;l2<(yPos2+p2Height);l2++) {
-    color colorL2=get(xPos2-fieldBuffer, l2);
-
-    if ( colorL2==#000000) {
-      leftPressed2=false;
-    }
-  }
-
-  for (int r2=yPos2;r2<(yPos2+p2Height);r2++) {
-    color colorR2=get(xPos2+p2Width+fieldBuffer, r2);
-
-    if ( colorR2==#000000) {
-      rightPressed2=false;
-    }
-  }
-
-  for (int u2=xPos2;u2<(xPos2+p2Width);u2++) {
-    color colorU2=get(u2, yPos2-fieldBuffer);
-
-    if ( colorU2==#000000) {
-      //upPressed2=false;
-      downPressed2=false;
-    }
-  }
-
-  for (int d2=xPos2;d2<(xPos2+p2Width);d2++) {
-    color colorD2=get(d2, yPos2+p2Height+fieldBuffer);
-
-    if ( colorD2==#000000) {
-      //downPressed2=false;
-      upPressed2=false;
-    }
-  }
-
-
-
 
   //--------------------
 
 
   //DEBUG 
-  //
-  //  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
-  //    println(xPos1);
-  //    println(yPos1);
-//Player controls
 
-if (upPressed1==true) {
-  yPos1-=playerSpeed;
-}
-if (downPressed1==true) {
-  yPos1+=playerSpeed;
-}
-
-if (leftPressed1==true) {
-  xPos1-=playerSpeed;
-}
-if (rightPressed1==true) {
-  xPos1+=playerSpeed;
-}
+  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
+    println(xPos1);
+    println(yPos1);
+  }
 
 
-//Mirror controls
+  if (upPressed1==true) {
+    yPos1-=playerSpeed;
+    yPos2+=playerSpeed;
+  }
+  if (downPressed1==true) {
+    yPos1+=playerSpeed;
+    yPos2-=playerSpeed;
+  }
 
-
-if (upPressed2==true) {
-  yPos2+=playerSpeed;
-}
-if (downPressed2==true) {
-  yPos2-=playerSpeed;
-}
-
-if (leftPressed2==true) {
-  xPos2-=playerSpeed;
-}
-if (rightPressed2==true) {
-  xPos2+=playerSpeed;
-}
+  if (leftPressed1==true) {
+    xPos1-=playerSpeed;
+    xPos2-=playerSpeed;
+  }
+  if (rightPressed1==true) {
+    xPos1+=playerSpeed;
+    xPos2+=playerSpeed;
+  }
 }
 
-void keyPressed() {
+public void keyPressed() {
   if (keyCode == UP) {
     upPressed1=true;
     upPressed2=true;
@@ -195,7 +162,7 @@ void keyPressed() {
   }
 }
 
-void keyReleased() {
+public void keyReleased() {
   if (keyCode == UP) {
     upPressed1=false;
     upPressed2=false;
@@ -216,7 +183,7 @@ void keyReleased() {
   }
 }
 
-void setup1() {
+public void setup1() {
 
   levelMap=loadImage("Untitled-1.png");
 
@@ -225,10 +192,14 @@ void setup1() {
 
   xPos1=127;
   yPos1=357;
-
+  
   xPos2=127;
-  yPos2=320;
+  yPos2=300;
 }
 
 //void setup2() {
 
+  static public void main(String args[]) {
+    PApplet.main(new String[] { "--bgcolor=#FFFFFF", "Mazeezam" });
+  }
+}

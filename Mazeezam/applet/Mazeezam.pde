@@ -25,7 +25,7 @@ void setup() {
   imageMode(CENTER);
   size (700, 700);
 
-  playerSpeed=3;
+  playerSpeed=2.6;
 
   fieldBuffer=5;
 
@@ -53,12 +53,12 @@ void draw() {
   stroke(0);
   fill(255, 0, 0);
   rect(xPos1, yPos1, p1Width, p1Height);
-
+  
   stroke(0);
-  fill(0, 0, 255);
+  fill(0,0,255);
   rect(xPos2, yPos2, p2Width, p2Height);
 
-  //THE  PLAYER COLLISION FIELDS-----------
+  //THE  COLLISION FIELDS-----------
 
   for (int l=yPos1;l<(yPos1+p1Height);l++) {
     color colorL=get(xPos1-fieldBuffer, l);
@@ -92,86 +92,34 @@ void draw() {
     }
   }
 
-//MIRROR FIELD CONTROLS
-
- for (int l2=yPos2;l2<(yPos2+p2Height);l2++) {
-    color colorL2=get(xPos2-fieldBuffer, l2);
-
-    if ( colorL2==#000000) {
-      leftPressed2=false;
-    }
-  }
-
-  for (int r2=yPos2;r2<(yPos2+p2Height);r2++) {
-    color colorR2=get(xPos2+p2Width+fieldBuffer, r2);
-
-    if ( colorR2==#000000) {
-      rightPressed2=false;
-    }
-  }
-
-  for (int u2=xPos2;u2<(xPos2+p2Width);u2++) {
-    color colorU2=get(u2, yPos2-fieldBuffer);
-
-    if ( colorU2==#000000) {
-      //upPressed2=false;
-      downPressed2=false;
-    }
-  }
-
-  for (int d2=xPos2;d2<(xPos2+p2Width);d2++) {
-    color colorD2=get(d2, yPos2+p2Height+fieldBuffer);
-
-    if ( colorD2==#000000) {
-      //downPressed2=false;
-      upPressed2=false;
-    }
-  }
-
-
-
-
   //--------------------
 
 
   //DEBUG 
-  //
-  //  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
-  //    println(xPos1);
-  //    println(yPos1);
-//Player controls
 
-if (upPressed1==true) {
-  yPos1-=playerSpeed;
-}
-if (downPressed1==true) {
-  yPos1+=playerSpeed;
-}
-
-if (leftPressed1==true) {
-  xPos1-=playerSpeed;
-}
-if (rightPressed1==true) {
-  xPos1+=playerSpeed;
-}
+  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
+    println(xPos1);
+    println(yPos1);
+  }
 
 
-//Mirror controls
+  if (upPressed1==true) {
+    yPos1-=playerSpeed;
+    yPos2+=playerSpeed;
+  }
+  if (downPressed1==true) {
+    yPos1+=playerSpeed;
+    yPos2-=playerSpeed;
+  }
 
-
-if (upPressed2==true) {
-  yPos2+=playerSpeed;
-}
-if (downPressed2==true) {
-  yPos2-=playerSpeed;
-}
-
-if (leftPressed2==true) {
-  xPos2-=playerSpeed;
-}
-if (rightPressed2==true) {
-  xPos2+=playerSpeed;
-}
+  if (leftPressed1==true) {
+    xPos1-=playerSpeed;
+    xPos2-=playerSpeed;
+  }
+  if (rightPressed1==true) {
+    xPos1+=playerSpeed;
+    xPos2+=playerSpeed;
+  }
 }
 
 void keyPressed() {
@@ -225,9 +173,9 @@ void setup1() {
 
   xPos1=127;
   yPos1=357;
-
+  
   xPos2=127;
-  yPos2=320;
+  yPos2=300;
 }
 
 //void setup2() {
