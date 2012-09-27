@@ -53,7 +53,10 @@ if(gameState==3){
 setup2();
   gameState++;
  }
-
+ if(gameState==5){
+   setup3();
+   gameState++;
+ }
   if (dist(xPos1, yPos1, xScore1, yScore1) < 15) {
     score1get=true;
 //    s1get=millis();
@@ -290,7 +293,30 @@ void setup2() {
   xScore2=557;
   yScore2=509;
 
-  xScore1=554;
-  yScore1=333;
+  xScore1=540;
+  yScore1=330;
+}
+
+void setup3() {
+    
+  levelMap=loadImage("Level3.png");
+
+  score1get=false;
+  score2get=false;
+
+  p1Width=p2Width=20;
+  p1Height=p2Height=20;
+
+  xPos1=143;
+  yPos1=216;
+
+  xPos2=143;
+  yPos2=396;
+
+  xScore1=510;
+  yScore1=440;
+
+  xScore2=547;
+  yScore2=439;
 }
 
