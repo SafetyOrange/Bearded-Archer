@@ -7,6 +7,9 @@ int p1Height, p2Height;
 int xPos1, xPos2;
 int yPos1, yPos2;
 
+int xScore1, xScore2;
+int yScore1, yScore2;
+
 float playerSpeed;
 
 int fieldBuffer;
@@ -20,6 +23,12 @@ boolean upPressed2;
 boolean downPressed2;
 boolean leftPressed2;
 boolean rightPressed2;
+
+float s1get;
+float s2get;
+
+boolean score1get=false;
+boolean score2get=false;
 
 void setup() {
   imageMode(CENTER);
@@ -45,6 +54,24 @@ void draw() {
   //    gameState++;
   //  }
 
+  if (dist(xPos1, yPos1, xScore1, yScore1) < 3) {
+    score1get=true;
+    s1get=millis();
+  }
+
+  if (dist(xPos2, yPos2, xScore2, yScore2) < 3) {
+    score2get=true;
+    s2get=millis();
+  }
+
+  if (score1get==true || score2get==true) {
+    if (score1get==true && score2get==true && s1get+s2get<1000) {
+      gameState++;
+    }
+    else {
+      gameState--;
+    }
+  }
 
 
   background(255);
@@ -53,10 +80,15 @@ void draw() {
   stroke(0);
   fill(255, 0, 0);
   rect(xPos1, yPos1, p1Width, p1Height);
+  noStroke();
+  ellipse(xScore1, yScore1, p1Width, p1Height);
 
   stroke(0);
   fill(0, 0, 255);
   rect(xPos2, yPos2, p2Width, p2Height);
+  noStroke();
+  ellipse(xScore2, yScore2, p1Width, p1Height);
+
 
   //THE  PLAYER COLLISION FIELDS-----------
 
@@ -92,9 +124,9 @@ void draw() {
     }
   }
 
-//MIRROR FIELD CONTROLS
+  //MIRROR FIELD CONTROLS
 
- for (int l2=yPos2;l2<(yPos2+p2Height);l2++) {
+  for (int l2=yPos2;l2<(yPos2+p2Height);l2++) {
     color colorL2=get(xPos2-fieldBuffer, l2);
 
     if ( colorL2==#000000) {
@@ -134,44 +166,48 @@ void draw() {
   //--------------------
 
 
-  //DEBUG 
-  //
-  //  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
-  //    println(xPos1);
-  //    println(yPos1);
-//Player controls
+  // DEBUG 
 
-if (upPressed1==true) {
-  yPos1-=playerSpeed;
-}
-if (downPressed1==true) {
-  yPos1+=playerSpeed;
-}
+  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
+    println(xPos1);
+    println(yPos1);
+    println(xPos2);
+    println(yPos2);
+  }
 
-if (leftPressed1==true) {
-  xPos1-=playerSpeed;
-}
-if (rightPressed1==true) {
-  xPos1+=playerSpeed;
-}
+  //Player controls
+
+  if (upPressed1==true) {
+    yPos1-=playerSpeed;
+  }
+  if (downPressed1==true) {
+    yPos1+=playerSpeed;
+  }
+
+  if (leftPressed1==true) {
+    xPos1-=playerSpeed;
+  }
+  if (rightPressed1==true) {
+    xPos1+=playerSpeed;
+  }
 
 
-//Mirror controls
+  //Mirror controls
 
 
-if (upPressed2==true) {
-  yPos2+=playerSpeed;
-}
-if (downPressed2==true) {
-  yPos2-=playerSpeed;
-}
+  if (upPressed2==true) {
+    yPos2+=playerSpeed;
+  }
+  if (downPressed2==true) {
+    yPos2-=playerSpeed;
+  }
 
-if (leftPressed2==true) {
-  xPos2-=playerSpeed;
-}
-if (rightPressed2==true) {
-  xPos2+=playerSpeed;
-}
+  if (leftPressed2==true) {
+    xPos2-=playerSpeed;
+  }
+  if (rightPressed2==true) {
+    xPos2+=playerSpeed;
+  }
 }
 
 void keyPressed() {
@@ -192,6 +228,10 @@ void keyPressed() {
   if (keyCode== RIGHT) {
     rightPressed1=true;
     rightPressed2=true;
+  }
+
+  if (keyCode=='R') {
+    gameState--;
   }
 }
 
@@ -220,6 +260,9 @@ void setup1() {
 
   levelMap=loadImage("Untitled-1.png");
 
+  score1get=false;
+  score2get=false;
+
   p1Width=p2Width=20;
   p1Height=p2Height=20;
 
@@ -228,6 +271,12 @@ void setup1() {
 
   xPos2=127;
   yPos2=320;
+
+  xScore2=582;
+  yScore2=330;
+
+  xScore1=582;
+  yScore1=367;
 }
 
 //void setup2() {
