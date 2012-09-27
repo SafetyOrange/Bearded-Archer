@@ -49,30 +49,24 @@ void draw() {
     setup1();
     gameState++;
   }
-  //   if(gameState==3){
-  //    setup2();
-  //    gameState++;
-  //  }
+if(gameState==3){
+setup2();
+  gameState++;
+ }
 
-  if (dist(xPos1, yPos1, xScore1, yScore1) < 3) {
+  if (dist(xPos1, yPos1, xScore1, yScore1) < 15) {
     score1get=true;
-    s1get=millis();
+//    s1get=millis();
   }
 
-  if (dist(xPos2, yPos2, xScore2, yScore2) < 3) {
+  if (dist(xPos2, yPos2, xScore2, yScore2) < 15) {
     score2get=true;
-    s2get=millis();
+//    s2get=millis();
   }
 
-  if (score1get==true || score2get==true) {
-    if (score1get==true && score2get==true && s1get+s2get<1000) {
+    if (score1get==true && score2get==true) {
       gameState++;
     }
-    else {
-      gameState--;
-    }
-  }
-
 
   background(255);
   image(levelMap, width/2, height/2);
@@ -168,12 +162,10 @@ void draw() {
 
   // DEBUG 
 
-  if (dist(mouseX, mouseY, xPos1, yPos1) < 10) {
-    println(xPos1);
-    println(yPos1);
-    println(xPos2);
-    println(yPos2);
-  }
+ 
+    println(mouseX);
+    println(mouseY);
+
 
   //Player controls
 
@@ -279,5 +271,26 @@ void setup1() {
   yScore1=367;
 }
 
-//void setup2() {
+void setup2() {
+    
+  levelMap=loadImage("Level2.5.png");
+
+  score1get=false;
+  score2get=false;
+
+  p1Width=p2Width=20;
+  p1Height=p2Height=20;
+
+  xPos1=143;
+  yPos1=216;
+
+  xPos2=143;
+  yPos2=396;
+
+  xScore2=557;
+  yScore2=509;
+
+  xScore1=554;
+  yScore1=333;
+}
 
